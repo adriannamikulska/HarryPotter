@@ -9,22 +9,30 @@ import UIKit
 
 class MainCollectionHeaderView: UICollectionReusableView {
     // TODO: NSLayoutConstraint like in Cell
+    lazy var headerLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .white
+        label.font = UIFont(name: "Cochin-Bold", size: 25)
+        label.textAlignment = .center
+        label.text = "Hogwart's houses"
+        return label
+    }()
     
-    let label = UILabel()
     override init(frame: CGRect) {
         super.init(frame: frame)
-        label.text = "Hogwart's houses"
-        addSubview(label)
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        label.frame = bounds
-        label.textAlignment = .center
-        label.font = .boldSystemFont(ofSize: 20.0)
+        setupSubviews()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupSubviews() {
+        addSubview(headerLabel)
+        
+        NSLayoutConstraint.activate([
+            headerLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+        ])
     }
 }
