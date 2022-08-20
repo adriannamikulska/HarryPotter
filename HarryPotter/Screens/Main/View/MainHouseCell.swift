@@ -12,7 +12,8 @@ class MainHouseCell: UICollectionViewCell {
     lazy var myLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 12)
+        label.textColor = .white
+        label.font = UIFont(name: "Cochin-BoldItalic", size: 15)
         label.textAlignment = .center
         return label
     }()

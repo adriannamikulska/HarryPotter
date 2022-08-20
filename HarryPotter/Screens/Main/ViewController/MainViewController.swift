@@ -45,6 +45,8 @@ final class MainViewController: UICollectionViewController {
         //navigationController?.navigationBar.prefersLargeTitles = true
        // UILabel.appearance(whenContainedInInstancesOf: [UINavigationBar.self]).adjustsFontSizeToFitWidth = true
         navigationItem.backButtonTitle = viewModel.backTitle
+        let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white, .font: UIFont(name: "Cochin-Bold", size: 25)]
+        navigationController?.navigationBar.titleTextAttributes = textAttributes
     }
     
     private func registerCells() {
