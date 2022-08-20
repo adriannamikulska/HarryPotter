@@ -38,8 +38,8 @@ final class MainViewController: UICollectionViewController {
     
     private func setupNavigationBar() {
         navigationItem.title = viewModel.screenTitle
-        navigationController?.navigationBar.prefersLargeTitles = true
-        UILabel.appearance(whenContainedInInstancesOf: [UINavigationBar.self]).adjustsFontSizeToFitWidth = true
+        //navigationController?.navigationBar.prefersLargeTitles = true
+       // UILabel.appearance(whenContainedInInstancesOf: [UINavigationBar.self]).adjustsFontSizeToFitWidth = true
         navigationItem.backButtonTitle = viewModel.backTitle
     }
     
@@ -58,7 +58,7 @@ extension MainViewController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return 10 // TODO: Check count of characters array
+            return 10 
         case 1:
             return 4
         default:
@@ -71,6 +71,9 @@ extension MainViewController {
         if indexPath.section == 0 {
             // TODO: Add new type for section 0 cells
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as? MainHouseCell else { return UICollectionViewCell() }
+            let currentIndex = MainViewModel.Images(rawValue: indexPath.item)
+            cell.myImageView.image = currentIndex?.nameImage
+            
             return cell
         } else if indexPath.section == 1 {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as? MainHouseCell else { return UICollectionViewCell() }
@@ -115,9 +118,9 @@ extension MainViewController {
                 return section
                 
             } else {
-                let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(0.5), heightDimension: .absolute(250)))
+                let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(0.5), heightDimension: .absolute(210)))
                 item.contentInsets.trailing = 16
-                item.contentInsets.bottom = 16
+                item.contentInsets.bottom = 5
                 
                 let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(500)), subitems: [item])
                 group.contentInsets.leading = 16

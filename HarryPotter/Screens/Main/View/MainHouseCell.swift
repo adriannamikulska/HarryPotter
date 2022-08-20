@@ -46,7 +46,7 @@ class MainHouseCell: UICollectionViewCell {
             
             myLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
             myLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
-            myLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            myLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: -100),
         ])
     }
     
