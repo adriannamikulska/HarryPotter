@@ -29,12 +29,16 @@ final class MainViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupNavigationBar()
         registerCells()
+        backgroundColor()
     }
     
     // MARK: - Private
+    
+    private func backgroundColor() {
+        collectionView.backgroundColor = viewModel.backgroundColor
+    }
     
     private func setupNavigationBar() {
         navigationItem.title = viewModel.screenTitle
