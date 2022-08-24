@@ -33,6 +33,9 @@ class MainCollectionHeaderView: UICollectionReusableView {
         
         NSLayoutConstraint.activate([
             headerLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            headerLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+            headerLabel.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor, constant: 8),
+            headerLabel.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -8)
         ])
     }
 }
