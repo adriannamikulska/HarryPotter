@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		40708ED728B661A10003A606 /* HouseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40708ED628B661A10003A606 /* HouseViewController.swift */; };
+		40708ED928B662280003A606 /* HouseMemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40708ED828B662280003A606 /* HouseMemberCell.swift */; };
+		40708EDB28B6627A0003A606 /* HouseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40708EDA28B6627A0003A606 /* HouseViewModel.swift */; };
 		409B830128AE59F50039D201 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409B830028AE59F50039D201 /* AppDelegate.swift */; };
 		409B830328AE59F50039D201 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409B830228AE59F50039D201 /* SceneDelegate.swift */; };
 		409B830A28AE59F70039D201 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 409B830928AE59F70039D201 /* Assets.xcassets */; };
@@ -38,6 +41,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		40708ED628B661A10003A606 /* HouseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseViewController.swift; sourceTree = "<group>"; };
+		40708ED828B662280003A606 /* HouseMemberCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseMemberCell.swift; sourceTree = "<group>"; };
+		40708EDA28B6627A0003A606 /* HouseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseViewModel.swift; sourceTree = "<group>"; };
 		409B82FD28AE59F50039D201 /* HarryPotter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HarryPotter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		409B830028AE59F50039D201 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		409B830228AE59F50039D201 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -80,6 +86,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		40708ED228B6615F0003A606 /* House */ = {
+			isa = PBXGroup;
+			children = (
+				40708ED528B661850003A606 /* ViewModel */,
+				40708ED428B6617D0003A606 /* ViewController */,
+				40708ED328B6616E0003A606 /* View */,
+			);
+			path = House;
+			sourceTree = "<group>";
+		};
+		40708ED328B6616E0003A606 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				40708ED828B662280003A606 /* HouseMemberCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		40708ED428B6617D0003A606 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				40708ED628B661A10003A606 /* HouseViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		40708ED528B661850003A606 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				40708EDA28B6627A0003A606 /* HouseViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		409B82F428AE59F50039D201 = {
 			isa = PBXGroup;
 			children = (
@@ -141,6 +181,7 @@
 		409B833128AE5CF80039D201 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				40708ED228B6615F0003A606 /* House */,
 				409B833428AE5DEC0039D201 /* Main */,
 			);
 			path = Screens;
@@ -327,9 +368,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				40708EDB28B6627A0003A606 /* HouseViewModel.swift in Sources */,
 				409B833B28AE5F7E0039D201 /* MainHouseCell.swift in Sources */,
 				409B833628AE5E070039D201 /* MainViewController.swift in Sources */,
 				409B830128AE59F50039D201 /* AppDelegate.swift in Sources */,
+				40708ED728B661A10003A606 /* HouseViewController.swift in Sources */,
+				40708ED928B662280003A606 /* HouseMemberCell.swift in Sources */,
 				409B833928AE5F400039D201 /* MainCollectionHeaderView.swift in Sources */,
 				409B830328AE59F50039D201 /* SceneDelegate.swift in Sources */,
 				409B833F28AE61A10039D201 /* MainViewModel.swift in Sources */,

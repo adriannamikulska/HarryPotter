@@ -85,7 +85,7 @@ extension MainViewController {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as? MainHouseCell else { return UICollectionViewCell() }
             cell.backgroundColor = .none
             
-            let currentHouse = MainViewModel.House(rawValue: indexPath.item)
+            let currentHouse = House(rawValue: indexPath.item)
             cell.myImageView.image = currentHouse?.image
             cell.myLabel.text = currentHouse?.name
             
@@ -96,8 +96,11 @@ extension MainViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // TODO: If sections is 1 navigate to TableView
-        //navigationController?.pushViewController(HouseTabelViewController, animated: true)
+        if indexPath.section == 1 {
+            let houseViewModel = HouseViewModel(house: House(rawValue: indexPath.item)!)
+            let houseViewController = HouseViewController(viewModel: houseViewModel)
+            navigationController?.pushViewController(houseViewController, animated: true)
+        }
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
