@@ -7,6 +7,31 @@
 
 import UIKit
 
+enum House: Int {
+    case griffindor = 0
+    case slytherin = 1
+    case ravenclaw = 2
+    case hufflepuff = 3
+    
+    var name: String {
+        switch self {
+        case .griffindor: return "Gryffindor House"
+        case .slytherin: return "Slytherin House"
+        case .ravenclaw: return "Ravenclaw House"
+        case .hufflepuff: return "Hufflepuff House"
+        }
+    }
+    
+    var image: UIImage? {
+        switch self {
+        case .griffindor: return UIImage(named: "gryffindor")
+        case .slytherin: return UIImage(named: "slytherin")
+        case .ravenclaw: return UIImage(named: "ravenclaw")
+        case .hufflepuff: return UIImage(named: "hufflepuff")
+        }
+    }
+}
+
 final class MainViewModel {
     
     enum Images: Int {
@@ -37,36 +62,10 @@ final class MainViewModel {
         }
     }
     
-    enum House: Int {
-        case griffindor = 0
-        case slytherin = 1
-        case ravenclaw = 2
-        case hufflepuff = 3
-        
-        var name: String {
-            switch self {
-            case .griffindor: return "Gryffindor House"
-            case .slytherin: return "Slytherin House"
-            case .ravenclaw: return "Ravenclaw House"
-            case .hufflepuff: return "Hufflepuff House"
-            }
-        }
-        
-        var image: UIImage? {
-            switch self {
-            case .griffindor: return UIImage(named: "gryffindor")
-            case .slytherin: return UIImage(named: "slytherin")
-            case .ravenclaw: return UIImage(named: "ravenclaw")
-            case .hufflepuff: return UIImage(named: "hufflepuff")
-            }
-        }
-    }
-    
     let screenTitle: String = "Harry Potter"
     let backTitle: String = "Back"
     let backgroundColor = UIColor(red: 0, green: 28, blue: 41)
 
-    
 }
 
 extension UIColor {
