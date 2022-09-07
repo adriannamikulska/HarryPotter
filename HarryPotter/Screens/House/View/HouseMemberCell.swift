@@ -13,7 +13,6 @@ final class HouseMemberCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name: "Cochin-Bold", size: 20)
-        label.textAlignment = .left
         label.textColor = .white
         return label
     }()
@@ -33,7 +32,7 @@ final class HouseMemberCell: UITableViewCell {
         
         NSLayoutConstraint.activate([
             myLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-            myLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            myLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12),
             myLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,constant: -8),
             myLabel.topAnchor.constraint(greaterThanOrEqualTo: contentView.topAnchor)
         ])

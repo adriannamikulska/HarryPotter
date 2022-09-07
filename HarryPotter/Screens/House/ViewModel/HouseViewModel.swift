@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct Character {
+struct Character: Decodable {
     let name: String
     let house: String
     let species: String
@@ -16,8 +16,25 @@ struct Character {
     let alive: Bool
 }
 
-protocol HouseViewModelDelegate {
-    func refreshView()
+enum HouseOfHogwart: Int {
+    case gryffindor = 0
+    case slytherin = 1
+    case ravenclaw = 2
+    case hufflepuff = 3
+    
+    var apiName: String {
+        switch self {
+        case .gryffindor: return "gryffindor"
+        case .slytherin: return "slytherin"
+        case .ravenclaw: return "ravenclaw"
+        case .hufflepuff: return "hufflepuff"
+        }
+    }
+}
+
+protocol HouseViewModelDelegate: AnyObject {
+    func didUpdateCharacters()
+    func didFailWithError(error: Error)
 }
 
 protocol HouseViewModelProtocol {
@@ -29,15 +46,15 @@ protocol HouseViewModelProtocol {
     var delegate: HouseViewModelDelegate? { get set }
     
     func downloadCharacters()
-
 }
 
 final class HouseViewModel: HouseViewModelProtocol {
+
+    private let house: HouseOfHogwart
+    weak var delegate: HouseViewModelDelegate?
+    private let apiClient = APIClient()
     
-    private let house: House
-    var delegate: HouseViewModelDelegate?
-    
-    init(house: House) {
+    init(house: HouseOfHogwart) {
         self.house = house
     }
     
@@ -50,22 +67,13 @@ final class HouseViewModel: HouseViewModelProtocol {
     let numberOfLine  = 0
     
     func downloadCharacters() {
-        // TODO: - Get characters from API Client
-        characters = [
-            Character(name: "Harry",
-                      house: "Gryffindor",
-                      species: "Human",
-                      ancestry: "yy",
-                      patronus: "yy",
-                      alive: true),
-            Character(name: "Hermiona",
-                      house: "Gryfindor",
-                      species: "Human",
-                      ancestry: "xx",
-                      patronus: "xx",
-                      alive: true),
-        ]
-        
-        delegate?.refreshView()
+        apiClient.downloadHogwartCharacters(for: house, onComplete: { [weak self] (characters, error) in
+            if let error = error {
+                self?.delegate?.didFailWithError(error: error)
+            } else {
+                self?.characters = characters
+                self?.delegate?.didUpdateCharacters()
+            }
+        })
     }
 }
