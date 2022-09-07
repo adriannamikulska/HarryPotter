@@ -15,6 +15,7 @@ final class MainViewController: UICollectionViewController {
     private let cellId = "cellId"
     private let headerId = "headerId"
     private static let categoryHeaderId = "categoryHeaderId"
+    private let apiClient = APIClient()
     
     // MARK: - Lifecycle
     
@@ -97,7 +98,7 @@ extension MainViewController {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.section == 1 {
-            let houseViewModel = HouseViewModel(house: House(rawValue: indexPath.item)!)
+            let houseViewModel = HouseViewModel(house: House(rawValue: indexPath.item)!, apiClient: apiClient)
             let houseViewController = HouseViewController(viewModel: houseViewModel)
             navigationController?.pushViewController(houseViewController, animated: true)
         }

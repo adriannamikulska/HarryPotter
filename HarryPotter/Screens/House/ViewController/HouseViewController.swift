@@ -19,7 +19,6 @@ final class HouseViewController: UITableViewController {
     init(viewModel: HouseViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
-        self.viewModel.delegate = self
     }
     
     required init?(coder: NSCoder) {
@@ -28,12 +27,16 @@ final class HouseViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel.delegate = self
         view.backgroundColor = viewModel.backgroundColor
         registerTable()
-        viewModel.downloadCharacters()
+        getCharacters()
     }
     
     //MARK: - Private
+    private func getCharacters() {
+        viewModel.downloadCharacters()
+    }
     
     private func registerTable() {
         tableView.register(HouseMemberCell.self, forCellReuseIdentifier: cellId)
@@ -41,24 +44,29 @@ final class HouseViewController: UITableViewController {
     
     private lazy var headerLabel: UILabel = {
         let headerLabel = UILabel()
+        headerLabel.translatesAutoresizingMaskIntoConstraints = false
         headerLabel.font = UIFont(name: "Cochin-Bold", size: 25)
         headerLabel.backgroundColor = viewModel.backgroundColor
         headerLabel.textColor = viewModel.textColor
         headerLabel.numberOfLines = viewModel.numberOfLine
         headerLabel.text = viewModel.headerText
-        headerLabel.translatesAutoresizingMaskIntoConstraints = false
-
+        headerLabel.textAlignment = .center
+            
         return headerLabel
     }()
-
 }
 
 extension HouseViewController: HouseViewModelDelegate {
-    func refreshView() {
+    
+    func didUpdateCharacters() {
         tableView.reloadData()
     }
-}
     
+    func didFailWithError(error: Error) {
+        print(error)
+    }
+}
+
 extension HouseViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

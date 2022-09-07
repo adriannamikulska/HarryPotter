@@ -8,14 +8,14 @@
 import UIKit
 
 enum House: Int {
-    case griffindor = 0
+    case gryffindor = 0
     case slytherin = 1
     case ravenclaw = 2
     case hufflepuff = 3
     
     var name: String {
         switch self {
-        case .griffindor: return "Gryffindor House"
+        case .gryffindor: return "Gryffindor House"
         case .slytherin: return "Slytherin House"
         case .ravenclaw: return "Ravenclaw House"
         case .hufflepuff: return "Hufflepuff House"
@@ -24,7 +24,7 @@ enum House: Int {
     
     var image: UIImage? {
         switch self {
-        case .griffindor: return UIImage(named: "gryffindor")
+        case .gryffindor: return UIImage(named: "gryffindor")
         case .slytherin: return UIImage(named: "slytherin")
         case .ravenclaw: return UIImage(named: "ravenclaw")
         case .hufflepuff: return UIImage(named: "hufflepuff")
