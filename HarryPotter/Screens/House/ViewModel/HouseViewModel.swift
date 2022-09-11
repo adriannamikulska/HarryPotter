@@ -14,6 +14,7 @@ struct Character: Decodable {
     let ancestry: String
     let patronus: String
     let alive: Bool
+    let image: String
 }
 
 extension House {
