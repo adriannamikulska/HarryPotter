@@ -10,6 +10,7 @@
 		40708ED728B661A10003A606 /* HouseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40708ED628B661A10003A606 /* HouseViewController.swift */; };
 		40708ED928B662280003A606 /* HouseMemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40708ED828B662280003A606 /* HouseMemberCell.swift */; };
 		40708EDB28B6627A0003A606 /* HouseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40708EDA28B6627A0003A606 /* HouseViewModel.swift */; };
+		4076614928BFB46000F94F9B /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4076614828BFB46000F94F9B /* APIClient.swift */; };
 		409B830128AE59F50039D201 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409B830028AE59F50039D201 /* AppDelegate.swift */; };
 		409B830328AE59F50039D201 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409B830228AE59F50039D201 /* SceneDelegate.swift */; };
 		409B830A28AE59F70039D201 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 409B830928AE59F70039D201 /* Assets.xcassets */; };
@@ -44,6 +45,7 @@
 		40708ED628B661A10003A606 /* HouseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseViewController.swift; sourceTree = "<group>"; };
 		40708ED828B662280003A606 /* HouseMemberCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseMemberCell.swift; sourceTree = "<group>"; };
 		40708EDA28B6627A0003A606 /* HouseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseViewModel.swift; sourceTree = "<group>"; };
+		4076614828BFB46000F94F9B /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		409B82FD28AE59F50039D201 /* HarryPotter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HarryPotter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		409B830028AE59F50039D201 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		409B830228AE59F50039D201 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -199,6 +201,7 @@
 		409B833328AE5D260039D201 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				4076614828BFB46000F94F9B /* APIClient.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -371,6 +374,7 @@
 				40708EDB28B6627A0003A606 /* HouseViewModel.swift in Sources */,
 				409B833B28AE5F7E0039D201 /* MainHouseCell.swift in Sources */,
 				409B833628AE5E070039D201 /* MainViewController.swift in Sources */,
+				4076614928BFB46000F94F9B /* APIClient.swift in Sources */,
 				409B830128AE59F50039D201 /* AppDelegate.swift in Sources */,
 				40708ED728B661A10003A606 /* HouseViewController.swift in Sources */,
 				40708ED928B662280003A606 /* HouseMemberCell.swift in Sources */,
