@@ -82,7 +82,10 @@ extension HouseViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // TODO: Navigate to CharacterViewController
+        let character = viewModel.characters[indexPath.row]
+        let characterViewModel = CharacterViewModel(character: character)
+        let characterVC = CharacterViewController(characterViewModel: characterViewModel)
+        self.navigationController?.pushViewController(characterVC, animated: true)
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
