@@ -65,7 +65,7 @@ final class MainViewModel {
     let screenTitle: String = "Harry Potter"
     let backTitle: String = "Back"
     let backgroundColor = UIColor(red: 0, green: 28, blue: 41)
-
+    let backgroundView = UIImageView(image: UIImage(named: "tlo-kopia"))
 }
 
 extension UIColor {

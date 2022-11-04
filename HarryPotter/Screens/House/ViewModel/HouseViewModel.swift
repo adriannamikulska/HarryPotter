@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct Character: Decodable {
+struct Character: Codable {
     let name: String
     let house: String
     let species: String
@@ -36,10 +36,12 @@ protocol HouseViewModelDelegate: AnyObject {
 protocol HouseViewModelProtocol {
     var characters: [Character] { get }
     var backgroundColor: UIColor { get }
+    var backgroundView: UIImageView { get }
     var headerText: String {get}
     var textColor: UIColor {get}
     var numberOfLine: Int {get}
     var delegate: HouseViewModelDelegate? { get set }
+    var userKey: String { get }
     
     func downloadCharacters()
 }
@@ -59,9 +61,11 @@ final class HouseViewModel: HouseViewModelProtocol {
     
     var characters = [Character]()
     let backgroundColor = UIColor(red: 0, green: 28, blue: 41)
+    let backgroundView = UIImageView(image: UIImage(named: "tlo-kopia"))
     let headerText = "Members of house"
     let textColor = UIColor.white
     let numberOfLine  = 0
+    let userKey = "userKey"
     
     func downloadCharacters() {
         apiClient.downloadHogwartCharacters(for: house, onComplete: { [weak self] (characters, error) in
