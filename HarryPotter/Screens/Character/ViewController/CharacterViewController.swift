@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CharacterViewController: UICollectionViewController {
+final class CharacterViewController: UICollectionViewController {
     
     //MARK: - Properties
     

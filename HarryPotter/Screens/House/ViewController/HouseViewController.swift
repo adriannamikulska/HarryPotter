@@ -28,9 +28,10 @@ final class HouseViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.delegate = self
-        view.backgroundColor = viewModel.backgroundColor
+        tableView.backgroundView = viewModel.backgroundView
         registerTable()
         getCharacters()
+        setupButton()
     }
     
     //MARK: - Private
@@ -42,16 +43,26 @@ final class HouseViewController: UITableViewController {
         tableView.register(HouseMemberCell.self, forCellReuseIdentifier: cellId)
     }
     
+    private func setupButton() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Favorite characters", style: .plain, target: self, action: #selector(didTapFavorite))
+    }
+    
+    @objc func didTapFavorite() {
+        let viewModel = FavouriteViewModel()
+        let favoriteVC = FavouriteViewController(favouriteViewModel: viewModel)
+        navigationController?.pushViewController(favoriteVC, animated: true)
+    }
+    
     private lazy var headerLabel: UILabel = {
         let headerLabel = UILabel()
         headerLabel.translatesAutoresizingMaskIntoConstraints = false
-        headerLabel.font = UIFont(name: "Cochin-Bold", size: 25)
+        headerLabel.font = UIFont(name: "Cochin-Bold", size: 20)
         headerLabel.backgroundColor = viewModel.backgroundColor
         headerLabel.textColor = viewModel.textColor
         headerLabel.numberOfLines = viewModel.numberOfLine
         headerLabel.text = viewModel.headerText
         headerLabel.textAlignment = .center
-            
+        
         return headerLabel
     }()
 }
@@ -65,6 +76,13 @@ extension HouseViewController: HouseViewModelDelegate {
     func didFailWithError(error: Error) {
         print(error)
     }
+    
+    //    func favouriteCharacter(cell: UITableViewCell) {
+    //        guard let indexPathTapped = tableView.indexPath(for: cell) else {return}
+    //        let character = viewModel.characters[indexPathTapped.row]
+    //        let name = character.name
+    //        print(name)
+    //    }
 }
 
 extension HouseViewController {
@@ -78,6 +96,13 @@ extension HouseViewController {
         let currentCharacter = viewModel.characters[indexPath.row]
         cell.myLabel.text = currentCharacter.name
         cell.backgroundColor = viewModel.backgroundColor
+        cell.selectionStyle = .none
+        cell.markedFavourite = {
+            print(currentCharacter.name)
+            if let encoded = try? JSONEncoder().encode(currentCharacter) {
+                UserDefaults.standard.set(encoded, forKey: self.viewModel.userKey)
+            }
+        }
         return cell
     }
     
@@ -96,3 +121,4 @@ extension HouseViewController {
         return headerLabel
     }
 }
+

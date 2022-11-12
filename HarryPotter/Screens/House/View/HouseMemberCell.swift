@@ -9,6 +9,8 @@ import UIKit
 
 final class HouseMemberCell: UITableViewCell {
     
+    var markedFavourite: (() -> Void)?
+    
     lazy var myLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -17,6 +19,19 @@ final class HouseMemberCell: UITableViewCell {
         return label
     }()
     
+    lazy var myButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(UIImage(named: "whiteheart"), for: .normal)
+        button.setImage(UIImage(named: "redheart"), for: .selected)
+        button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
+        return button
+    }()
+    
+    @objc func didTapButton() {
+        let wasSelected = myButton.isSelected
+        myButton.isSelected = !wasSelected
+    }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -29,12 +44,17 @@ final class HouseMemberCell: UITableViewCell {
 
     private func setupView() {
         contentView.addSubview(myLabel)
+        contentView.addSubview(myButton)
         
         NSLayoutConstraint.activate([
-            myLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-            myLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12),
+            myLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
             myLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,constant: -8),
-            myLabel.topAnchor.constraint(greaterThanOrEqualTo: contentView.topAnchor)
+            myLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12),
+            myLabel.topAnchor.constraint(equalTo: contentView.topAnchor,constant: 8),
+            
+            myButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,constant: -10),
+            myButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
+            myButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8)
         ])
     }
 }

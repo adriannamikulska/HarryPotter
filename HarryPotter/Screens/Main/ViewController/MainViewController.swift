@@ -32,19 +32,17 @@ final class MainViewController: UICollectionViewController {
         super.viewDidLoad()
         setupNavigationBar()
         registerCells()
-        backgroundColor()
+        backgroundView()
     }
     
     // MARK: - Private
     
-    private func backgroundColor() {
-        collectionView.backgroundColor = viewModel.backgroundColor
+    private func backgroundView() {
+        collectionView.backgroundView = viewModel.backgroundView
     }
     
     private func setupNavigationBar() {
         navigationItem.title = viewModel.screenTitle
-        //navigationController?.navigationBar.prefersLargeTitles = true
-       // UILabel.appearance(whenContainedInInstancesOf: [UINavigationBar.self]).adjustsFontSizeToFitWidth = true
         navigationItem.backButtonTitle = viewModel.backTitle
         let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white, .font: UIFont(name: "Cochin-Bold", size: 25)]
         navigationController?.navigationBar.titleTextAttributes = textAttributes
@@ -54,7 +52,6 @@ final class MainViewController: UICollectionViewController {
         collectionView.register(MainHouseCell.self, forCellWithReuseIdentifier: cellId)
         collectionView.register(MainCollectionHeaderView.self, forSupplementaryViewOfKind: MainViewController.categoryHeaderId, withReuseIdentifier: headerId)
     }
-    
 }
 
 extension MainViewController {
