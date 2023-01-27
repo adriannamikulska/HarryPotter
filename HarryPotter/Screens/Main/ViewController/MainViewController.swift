@@ -95,8 +95,8 @@ extension MainViewController {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.section == 1 {
-            let houseViewModel = HouseViewModel(house: House(rawValue: indexPath.item)!, apiClient: apiClient)
-            let houseViewController = HouseViewController(viewModel: houseViewModel)
+            let houseViewModel = HouseViewModel(house: House(rawValue: indexPath.item)!, apiClient: apiClient, dependencies: viewModel.dependencies)
+            let houseViewController = HouseViewController(viewModel: houseViewModel, dependencies: viewModel.dependencies)
             navigationController?.pushViewController(houseViewController, animated: true)
         }
     }

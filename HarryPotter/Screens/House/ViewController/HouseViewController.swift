@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreData
 
 final class HouseViewController: UITableViewController {
     
@@ -13,11 +14,13 @@ final class HouseViewController: UITableViewController {
     
     private var viewModel: HouseViewModelProtocol
     private let cellId = "cellId"
-    
+    private let dependencies: ApplicationDependencies
+
     //MARK: - Lifecycle
     
-    init(viewModel: HouseViewModelProtocol) {
+    init(viewModel: HouseViewModelProtocol, dependencies: ApplicationDependencies) {
         self.viewModel = viewModel
+        self.dependencies = dependencies
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -49,7 +52,7 @@ final class HouseViewController: UITableViewController {
     
     @objc func didTapFavorite() {
         let viewModel = FavouriteViewModel()
-        let favoriteVC = FavouriteViewController(favouriteViewModel: viewModel)
+        let favoriteVC = FavouriteViewController(favouriteViewModel: viewModel, dependencies: self.viewModel.dependencies)
         navigationController?.pushViewController(favoriteVC, animated: true)
     }
     
@@ -62,7 +65,6 @@ final class HouseViewController: UITableViewController {
         headerLabel.numberOfLines = viewModel.numberOfLine
         headerLabel.text = viewModel.headerText
         headerLabel.textAlignment = .center
-        
         return headerLabel
     }()
 }
@@ -76,13 +78,6 @@ extension HouseViewController: HouseViewModelDelegate {
     func didFailWithError(error: Error) {
         print(error)
     }
-    
-    //    func favouriteCharacter(cell: UITableViewCell) {
-    //        guard let indexPathTapped = tableView.indexPath(for: cell) else {return}
-    //        let character = viewModel.characters[indexPathTapped.row]
-    //        let name = character.name
-    //        print(name)
-    //    }
 }
 
 extension HouseViewController {
@@ -91,17 +86,29 @@ extension HouseViewController {
         return viewModel.characters.count
     }
     
+    //TODO: Complete the function
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! HouseMemberCell
         let currentCharacter = viewModel.characters[indexPath.row]
         cell.myLabel.text = currentCharacter.name
         cell.backgroundColor = viewModel.backgroundColor
         cell.selectionStyle = .none
-        cell.markedFavourite = {
-            print(currentCharacter.name)
-            if let encoded = try? JSONEncoder().encode(currentCharacter) {
-                UserDefaults.standard.set(encoded, forKey: self.viewModel.userKey)
+    
+        let person = viewModel.characters[indexPath.row]
+        cell.setPersonLabel(text: person.name.capitalized)
+        let isAlreadyFavourite = dependencies.dataController.isSaved(person: person)
+        cell.setButtonState(isSelected: isAlreadyFavourite)
+        cell.makedFavourite = { [weak self] shouldDelete in
+            do {
+                if shouldDelete {
+                    try self?.dependencies.dataController.delete(person: person)
+                } else {
+                    try self?.dependencies.dataController.insert(person: person)
+                }
+            } catch(let error) {
+                print(error)
             }
+            
         }
         return cell
     }

@@ -34,6 +34,12 @@ enum House: Int {
 
 final class MainViewModel {
     
+    let dependencies: ApplicationDependencies
+    
+    init(dependencies: ApplicationDependencies) {
+        self.dependencies = dependencies
+    }
+    
     enum Images: Int {
         case item0 = 0
         case item1 = 1

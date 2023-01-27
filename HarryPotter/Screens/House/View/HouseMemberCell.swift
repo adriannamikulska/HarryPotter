@@ -9,7 +9,7 @@ import UIKit
 
 final class HouseMemberCell: UITableViewCell {
     
-    var markedFavourite: (() -> Void)?
+    var makedFavourite: ((Bool) -> Void)?
     
     lazy var myLabel: UILabel = {
         let label = UILabel()
@@ -30,7 +30,16 @@ final class HouseMemberCell: UITableViewCell {
     
     @objc func didTapButton() {
         let wasSelected = myButton.isSelected
+        makedFavourite?(wasSelected)
         myButton.isSelected = !wasSelected
+    }
+    
+    func setButtonState(isSelected: Bool) {
+        myButton.isSelected = isSelected
+    }
+    
+    func setPersonLabel(text: String) {
+        myLabel.text = text
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
