@@ -10,7 +10,7 @@ import UIKit
 final class APIClient {
     
     func downloadHogwartCharacters(for house: House, onComplete: @escaping ([Character], Error?) -> Void) {
-        let urlString = "https://hp-api.herokuapp.com/api/characters/house/\(house.apiName)"
+        let urlString = "https://hp-api.onrender.com/api/characters/house/\(house.apiName)"
         if let url = URL(string: urlString) {
             let session = URLSession(configuration: .default)
             let task = session.dataTask(with: url) { (data, response, error) in

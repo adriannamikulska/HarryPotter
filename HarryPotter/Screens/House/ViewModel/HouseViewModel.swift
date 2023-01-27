@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct Character: Codable {
+struct Character: Codable, Hashable, CharacterProtocol {
     let name: String
     let house: String
     let species: String
@@ -15,7 +15,10 @@ struct Character: Codable {
     let patronus: String
     let alive: Bool
     let image: String
+    let id: String
 }
+
+extension CharacterDB: CharacterProtocol {}
 
 extension House {
     var apiName: String {
@@ -41,20 +44,22 @@ protocol HouseViewModelProtocol {
     var textColor: UIColor {get}
     var numberOfLine: Int {get}
     var delegate: HouseViewModelDelegate? { get set }
-    var userKey: String { get }
+    var dependencies: ApplicationDependencies { get }
+    var cellId: String { get }
     
     func downloadCharacters()
 }
 
 final class HouseViewModel: HouseViewModelProtocol {
-
     private let house: House
     weak var delegate: HouseViewModelDelegate?
     private let apiClient: APIClient
+    let dependencies: ApplicationDependencies
     
-    init(house: House, apiClient: APIClient) {
+    init(house: House, apiClient: APIClient, dependencies: ApplicationDependencies) {
         self.house = house
         self.apiClient = apiClient
+        self.dependencies = dependencies
     }
     
     // MARK: - HouseViewModelProtocol
@@ -65,7 +70,8 @@ final class HouseViewModel: HouseViewModelProtocol {
     let headerText = "Members of house"
     let textColor = UIColor.white
     let numberOfLine  = 0
-    let userKey = "userKey"
+    let cellId = "cellId"
+    
     
     func downloadCharacters() {
         apiClient.downloadHogwartCharacters(for: house, onComplete: { [weak self] (characters, error) in
@@ -78,3 +84,5 @@ final class HouseViewModel: HouseViewModelProtocol {
         })
     }
 }
+
+

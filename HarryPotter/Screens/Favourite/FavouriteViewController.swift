@@ -6,18 +6,13 @@
 //
 
 import UIKit
+import CoreData
 
 final class FavouriteViewController: UITableViewController {
     
     //MARK: - Properties
     
-    private let cellId = "cellId"
     private var favouriteViewModel: FavouriteViewModelProtocol
-    private lazy var characters =  favouriteViewModel.characters {
-        didSet {
-            tableView.reloadData()
-        }
-    }
     
     //MARK: - Lifecycle
     
@@ -34,20 +29,13 @@ final class FavouriteViewController: UITableViewController {
         super.viewDidLoad()
         tableRegister()
         tableView.backgroundView = favouriteViewModel.backgroundView
-//        if let data = UserDefaults.standard.object(forKey: UserDefaultsKeys.jobCategory.rawValue) as? Data,
-//           let category = try? JSONDecoder().decode(JobCategory.self, from: data) {
-//             print(category.name)
-//        }
-        if let favouriteCharacter = UserDefaults.standard.object(forKey: favouriteViewModel.userKey) as? Data, // as [Characters]
-        let category = try? JSONDecoder().decode(Character.self, from: favouriteCharacter) {
-            print(category.name)
-        }
+        performFetch()
     }
     
     //MARK: - Private
     
     private func tableRegister() {
-        tableView.register(FavouriteMemberCell.self, forCellReuseIdentifier: cellId)
+        tableView.register(FavouriteMemberCell.self, forCellReuseIdentifier: favouriteViewModel.cellId)
     }
 
     private lazy var header: UILabel = {
@@ -60,31 +48,99 @@ final class FavouriteViewController: UITableViewController {
         
         return header
     }()
+    
+    private func performFetch() {
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {
+            fatalError("Failed to initialize FetchedResultsController: \(error)")
+        }
+    }
+    
+    private lazy var fetchedResultsController: NSFetchedResultsController<CharacterDB> = {
+        
+        let fetchRequest: NSFetchRequest<CharacterDB> = CharacterDB.fetchRequest()
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "id", ascending: true)]
+        
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: favouriteViewModel.dependencies.dataController.context, sectionNameKeyPath: nil, cacheName: nil)
+        fetchedResultsController.delegate = self
+        return fetchedResultsController
+    }()
 }
 
 extension FavouriteViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return characters.count
+        guard let sections = fetchedResultsController.sections else {
+            fatalError("No sections in fetchedResultsController")
+        }
+        let sectionInfo = sections[section]
+        if sectionInfo.numberOfObjects > 0 {
+            
+            return sectionInfo.numberOfObjects
+            
+        } else {
+             print("error")
+            return 0
+        }
+        
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return fetchedResultsController.sections!.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! FavouriteMemberCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: favouriteViewModel.cellId, for: indexPath) as! FavouriteMemberCell
+        let object = self.fetchedResultsController.object(at: indexPath)
+        
         cell.backgroundColor = favouriteViewModel.backgroundColor
-        let currentCharacter = characters[indexPath.row]
-        cell.memberLabel.text = currentCharacter.name //favouriteViewModel.character.name
-        return cell
-    }
+        cell.memberLabel.text = object.name
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        return
+        return cell
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return header
+    }
+}
+
+extension FavouriteViewController: NSFetchedResultsControllerDelegate {
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.beginUpdates()
+    }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
+        switch type {
+        case .insert:
+            tableView.insertSections(IndexSet(integer: sectionIndex), with: .fade)
+        case .delete:
+            tableView.deleteSections(IndexSet(integer: sectionIndex), with: .fade)
+        case .move:
+            break
+        case .update:
+            break
+        @unknown default:
+            fatalError()
+        }
+    }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        switch type {
+        case .insert:
+            tableView.insertRows(at: [newIndexPath!], with: .fade)
+        case .delete:
+            tableView.deleteRows(at: [indexPath!], with: .fade)
+        case .update:
+            tableView.reloadRows(at: [indexPath!], with: .fade)
+        case .move:
+            tableView.moveRow(at: indexPath!, to: newIndexPath!)
+        @unknown default:
+            fatalError()
+        }
+    }
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.endUpdates()
     }
 }

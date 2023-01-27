@@ -11,14 +11,16 @@ protocol CharacterViewModelProtocol {
     var backgroundColor: UIColor { get }
     var character: Character { get }
     var backgroundView: UIImageView { get }
+    var characterCellId: String { get }
 }
 
 final class CharacterViewModel: CharacterViewModelProtocol {
     var character: Character
     var backgroundView = UIImageView(image: UIImage(named: "tlo-kopia"))
     let backgroundColor = UIColor(red: 0, green: 28, blue: 41)
+    let characterCellId = "characterCellId"
     private let apiClient = APIClient()
-    
+
     init(character: Character) {
         self.character = character
     }

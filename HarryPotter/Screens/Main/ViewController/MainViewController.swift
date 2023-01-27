@@ -11,16 +11,13 @@ final class MainViewController: UICollectionViewController {
     
     // MARK: - Properties
     
-    private let viewModel: MainViewModel
-    private let cellId = "cellId"
-    private let headerId = "headerId"
-    private static let categoryHeaderId = "categoryHeaderId"
-    private let apiClient = APIClient()
+    private let mainViewModel: MainViewModelProtocol
+    static let categoryHeaderId = "categoryHeaderId"
     
     // MARK: - Lifecycle
     
-    init(viewModel: MainViewModel) {
-        self.viewModel = viewModel
+    init(viewModel: MainViewModelProtocol) {
+        self.mainViewModel = viewModel
         super.init(collectionViewLayout: MainViewController.createLayout())
     }
     
@@ -38,19 +35,19 @@ final class MainViewController: UICollectionViewController {
     // MARK: - Private
     
     private func backgroundView() {
-        collectionView.backgroundView = viewModel.backgroundView
+        collectionView.backgroundView = mainViewModel.backgroundView
     }
     
     private func setupNavigationBar() {
-        navigationItem.title = viewModel.screenTitle
-        navigationItem.backButtonTitle = viewModel.backTitle
+        navigationItem.title = mainViewModel.screenTitle
+        navigationItem.backButtonTitle = mainViewModel.backTitle
         let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white, .font: UIFont(name: "Cochin-Bold", size: 25)]
         navigationController?.navigationBar.titleTextAttributes = textAttributes
     }
     
     private func registerCells() {
-        collectionView.register(MainHouseCell.self, forCellWithReuseIdentifier: cellId)
-        collectionView.register(MainCollectionHeaderView.self, forSupplementaryViewOfKind: MainViewController.categoryHeaderId, withReuseIdentifier: headerId)
+        collectionView.register(MainHouseCell.self, forCellWithReuseIdentifier: mainViewModel.cellId)
+        collectionView.register(MainCollectionHeaderView.self, forSupplementaryViewOfKind: MainViewController.categoryHeaderId, withReuseIdentifier: mainViewModel.headerId)
     }
 }
 
@@ -74,13 +71,13 @@ extension MainViewController {
         
         if indexPath.section == 0 {
             // TODO: Add new type for section 0 cells
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as? MainHouseCell else { return UICollectionViewCell() }
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: mainViewModel.cellId, for: indexPath) as? MainHouseCell else { return UICollectionViewCell() }
             let currentIndex = MainViewModel.Images(rawValue: indexPath.item)
             cell.myImageView.image = currentIndex?.nameImage
             
             return cell
         } else if indexPath.section == 1 {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as? MainHouseCell else { return UICollectionViewCell() }
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: mainViewModel.cellId, for: indexPath) as? MainHouseCell else { return UICollectionViewCell() }
             cell.backgroundColor = .none
             
             let currentHouse = House(rawValue: indexPath.item)
@@ -95,14 +92,14 @@ extension MainViewController {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.section == 1 {
-            let houseViewModel = HouseViewModel(house: House(rawValue: indexPath.item)!, apiClient: apiClient)
+            let houseViewModel = HouseViewModel(house: House(rawValue: indexPath.item)!, apiClient: mainViewModel.apiClient, dependencies: mainViewModel.dependencies)
             let houseViewController = HouseViewController(viewModel: houseViewModel)
             navigationController?.pushViewController(houseViewController, animated: true)
         }
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerId, for: indexPath)
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: mainViewModel.headerId, for: indexPath)
 
         return header
     }
@@ -134,7 +131,6 @@ extension MainViewController {
                 group.contentInsets.leading = 16
                 
                 let section = NSCollectionLayoutSection(group: group)
-                
                 section.boundarySupplementaryItems = [.init(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(50)), elementKind: categoryHeaderId, alignment: .top)]
                    
                 return section

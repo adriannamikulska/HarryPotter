@@ -6,18 +6,18 @@
 //
 
 import UIKit
+import CoreData
 
 final class HouseViewController: UITableViewController {
     
     //MARK: - Properties
     
-    private var viewModel: HouseViewModelProtocol
-    private let cellId = "cellId"
-    
+    private var houseViewModel: HouseViewModelProtocol
+
     //MARK: - Lifecycle
     
     init(viewModel: HouseViewModelProtocol) {
-        self.viewModel = viewModel
+        self.houseViewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -27,8 +27,8 @@ final class HouseViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel.delegate = self
-        tableView.backgroundView = viewModel.backgroundView
+        houseViewModel.delegate = self
+        tableView.backgroundView = houseViewModel.backgroundView
         registerTable()
         getCharacters()
         setupButton()
@@ -36,11 +36,11 @@ final class HouseViewController: UITableViewController {
     
     //MARK: - Private
     private func getCharacters() {
-        viewModel.downloadCharacters()
+        houseViewModel.downloadCharacters()
     }
     
     private func registerTable() {
-        tableView.register(HouseMemberCell.self, forCellReuseIdentifier: cellId)
+        tableView.register(HouseMemberCell.self, forCellReuseIdentifier: houseViewModel.cellId)
     }
     
     private func setupButton() {
@@ -48,7 +48,7 @@ final class HouseViewController: UITableViewController {
     }
     
     @objc func didTapFavorite() {
-        let viewModel = FavouriteViewModel()
+        let viewModel = FavouriteViewModel(dependencies: self.houseViewModel.dependencies)
         let favoriteVC = FavouriteViewController(favouriteViewModel: viewModel)
         navigationController?.pushViewController(favoriteVC, animated: true)
     }
@@ -57,12 +57,11 @@ final class HouseViewController: UITableViewController {
         let headerLabel = UILabel()
         headerLabel.translatesAutoresizingMaskIntoConstraints = false
         headerLabel.font = UIFont(name: "Cochin-Bold", size: 20)
-        headerLabel.backgroundColor = viewModel.backgroundColor
-        headerLabel.textColor = viewModel.textColor
-        headerLabel.numberOfLines = viewModel.numberOfLine
-        headerLabel.text = viewModel.headerText
+        headerLabel.backgroundColor = houseViewModel.backgroundColor
+        headerLabel.textColor = houseViewModel.textColor
+        headerLabel.numberOfLines = houseViewModel.numberOfLine
+        headerLabel.text = houseViewModel.headerText
         headerLabel.textAlignment = .center
-        
         return headerLabel
     }()
 }
@@ -76,38 +75,42 @@ extension HouseViewController: HouseViewModelDelegate {
     func didFailWithError(error: Error) {
         print(error)
     }
-    
-    //    func favouriteCharacter(cell: UITableViewCell) {
-    //        guard let indexPathTapped = tableView.indexPath(for: cell) else {return}
-    //        let character = viewModel.characters[indexPathTapped.row]
-    //        let name = character.name
-    //        print(name)
-    //    }
 }
 
 extension HouseViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.characters.count
+        return houseViewModel.characters.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! HouseMemberCell
-        let currentCharacter = viewModel.characters[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: houseViewModel.cellId, for: indexPath) as! HouseMemberCell
+        let currentCharacter = houseViewModel.characters[indexPath.row]
         cell.myLabel.text = currentCharacter.name
-        cell.backgroundColor = viewModel.backgroundColor
+        cell.backgroundColor = houseViewModel.backgroundColor
         cell.selectionStyle = .none
-        cell.markedFavourite = {
-            print(currentCharacter.name)
-            if let encoded = try? JSONEncoder().encode(currentCharacter) {
-                UserDefaults.standard.set(encoded, forKey: self.viewModel.userKey)
+    
+        let person = houseViewModel.characters[indexPath.row]
+        cell.setPersonLabel(text: person.name.capitalized)
+        let isAlreadyFavourite = houseViewModel.dependencies.dataController.isSaved(person: person)
+        cell.setButtonState(isSelected: isAlreadyFavourite)
+        cell.markedFavourite = { [weak self] shouldDelete in
+            do {
+                if shouldDelete {
+                    try self?.houseViewModel.dependencies.dataController.delete(person: person)
+                } else {
+                    try self?.houseViewModel.dependencies.dataController.insert(person: person)
+                }
+            } catch(let error) {
+                print(error)
             }
+            
         }
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let character = viewModel.characters[indexPath.row]
+        let character = houseViewModel.characters[indexPath.row]
         let characterViewModel = CharacterViewModel(character: character)
         let characterVC = CharacterViewController(characterViewModel: characterViewModel)
         self.navigationController?.pushViewController(characterVC, animated: true)

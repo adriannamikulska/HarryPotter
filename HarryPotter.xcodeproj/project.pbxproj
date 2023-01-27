@@ -7,9 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		401D262C2931109000E0D432 /* HarryPotterModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 401D262A2931109000E0D432 /* HarryPotterModel.xcdatamodeld */; };
 		4062B4B428E47EC300813CCF /* FavouriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4062B4B328E47EC300813CCF /* FavouriteViewController.swift */; };
 		4062B4B928E47F5900813CCF /* FavouriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4062B4B828E47F5900813CCF /* FavouriteViewModel.swift */; };
 		4062B4BB28E47F6700813CCF /* FavouriteMemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4062B4BA28E47F6700813CCF /* FavouriteMemberCell.swift */; };
+		40665044298A8A210048B97E /* CharacterDB+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40665042298A8A210048B97E /* CharacterDB+CoreDataClass.swift */; };
+		40665045298A8A210048B97E /* CharacterDB+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40665043298A8A210048B97E /* CharacterDB+CoreDataProperties.swift */; };
 		40708ED728B661A10003A606 /* HouseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40708ED628B661A10003A606 /* HouseViewController.swift */; };
 		40708ED928B662280003A606 /* HouseMemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40708ED828B662280003A606 /* HouseMemberCell.swift */; };
 		40708EDB28B6627A0003A606 /* HouseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40708EDA28B6627A0003A606 /* HouseViewModel.swift */; };
@@ -28,6 +31,7 @@
 		409B833928AE5F400039D201 /* MainCollectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409B833828AE5F400039D201 /* MainCollectionHeaderView.swift */; };
 		409B833B28AE5F7E0039D201 /* MainHouseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409B833A28AE5F7E0039D201 /* MainHouseCell.swift */; };
 		409B833F28AE61A10039D201 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409B833E28AE61A10039D201 /* MainViewModel.swift */; };
+		40D3D2E0291FEB3000210269 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D3D2DF291FEB3000210269 /* CoreDataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,9 +52,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		401D262B2931109000E0D432 /* HarryPotterModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HarryPotterModel.xcdatamodel; sourceTree = "<group>"; };
 		4062B4B328E47EC300813CCF /* FavouriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteViewController.swift; sourceTree = "<group>"; };
 		4062B4B828E47F5900813CCF /* FavouriteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteViewModel.swift; sourceTree = "<group>"; };
 		4062B4BA28E47F6700813CCF /* FavouriteMemberCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteMemberCell.swift; sourceTree = "<group>"; };
+		40665042298A8A210048B97E /* CharacterDB+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CharacterDB+CoreDataClass.swift"; sourceTree = "<group>"; };
+		40665043298A8A210048B97E /* CharacterDB+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CharacterDB+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		40708ED628B661A10003A606 /* HouseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseViewController.swift; sourceTree = "<group>"; };
 		40708ED828B662280003A606 /* HouseMemberCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseMemberCell.swift; sourceTree = "<group>"; };
 		40708EDA28B6627A0003A606 /* HouseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseViewModel.swift; sourceTree = "<group>"; };
@@ -73,6 +80,7 @@
 		409B833828AE5F400039D201 /* MainCollectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionHeaderView.swift; sourceTree = "<group>"; };
 		409B833A28AE5F7E0039D201 /* MainHouseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHouseCell.swift; sourceTree = "<group>"; };
 		409B833E28AE61A10039D201 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		40D3D2DF291FEB3000210269 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -283,7 +291,8 @@
 		409B833328AE5D260039D201 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				4076614828BFB46000F94F9B /* APIClient.swift */,
+				40D3D2DA291FE9EE00210269 /* API */,
+				40D3D2D6291FE84700210269 /* CoreData */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -321,6 +330,25 @@
 				409B833528AE5E070039D201 /* MainViewController.swift */,
 			);
 			path = ViewController;
+			sourceTree = "<group>";
+		};
+		40D3D2D6291FE84700210269 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				40665042298A8A210048B97E /* CharacterDB+CoreDataClass.swift */,
+				40665043298A8A210048B97E /* CharacterDB+CoreDataProperties.swift */,
+				40D3D2DF291FEB3000210269 /* CoreDataManager.swift */,
+				401D262A2931109000E0D432 /* HarryPotterModel.xcdatamodeld */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		40D3D2DA291FE9EE00210269 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				4076614828BFB46000F94F9B /* APIClient.swift */,
+			);
+			path = API;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -454,6 +482,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				408EBAFF28CCA3E7001E3811 /* CharacterViewController.swift in Sources */,
+				40665044298A8A210048B97E /* CharacterDB+CoreDataClass.swift in Sources */,
 				40708EDB28B6627A0003A606 /* HouseViewModel.swift in Sources */,
 				409B833B28AE5F7E0039D201 /* MainHouseCell.swift in Sources */,
 				4062B4BB28E47F6700813CCF /* FavouriteMemberCell.swift in Sources */,
@@ -461,13 +490,16 @@
 				4062B4B428E47EC300813CCF /* FavouriteViewController.swift in Sources */,
 				408EBB0128CCA41B001E3811 /* CharacterViewModel.swift in Sources */,
 				4076614928BFB46000F94F9B /* APIClient.swift in Sources */,
+				40665045298A8A210048B97E /* CharacterDB+CoreDataProperties.swift in Sources */,
 				409B830128AE59F50039D201 /* AppDelegate.swift in Sources */,
 				40708ED728B661A10003A606 /* HouseViewController.swift in Sources */,
 				408EBB0328CCA428001E3811 /* CharacterCell.swift in Sources */,
 				40708ED928B662280003A606 /* HouseMemberCell.swift in Sources */,
 				4062B4B928E47F5900813CCF /* FavouriteViewModel.swift in Sources */,
 				409B833928AE5F400039D201 /* MainCollectionHeaderView.swift in Sources */,
+				401D262C2931109000E0D432 /* HarryPotterModel.xcdatamodeld in Sources */,
 				409B830328AE59F50039D201 /* SceneDelegate.swift in Sources */,
+				40D3D2E0291FEB3000210269 /* CoreDataManager.swift in Sources */,
 				409B833F28AE61A10039D201 /* MainViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -800,6 +832,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		401D262A2931109000E0D432 /* HarryPotterModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				401D262B2931109000E0D432 /* HarryPotterModel.xcdatamodel */,
+			);
+			currentVersion = 401D262B2931109000E0D432 /* HarryPotterModel.xcdatamodel */;
+			path = HarryPotterModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 409B82F528AE59F50039D201 /* Project object */;
 }

@@ -32,8 +32,33 @@ enum House: Int {
     }
 }
 
-final class MainViewModel {
+protocol MainViewModelProtocol {
+    var dependencies: ApplicationDependencies { get }
+    var apiClient: APIClient { get }
+    var cellId: String { get }
+    var headerId: String { get }
+    var screenTitle: String { get }
+    var backTitle: String { get }
+    var backgroundColor: UIColor { get }
+    var backgroundView: UIImageView { get }
+}
+
+final class MainViewModel: MainViewModelProtocol {
     
+    let dependencies: ApplicationDependencies
+    
+    init(dependencies: ApplicationDependencies) {
+        self.dependencies = dependencies
+    }
+    
+    let apiClient =  APIClient()
+    let cellId = "cellId"
+    let headerId = "headerId"
+    let screenTitle = "Harry Potter"
+    let backTitle = "Back"
+    let backgroundColor = UIColor(red: 0, green: 28, blue: 41)
+    let backgroundView = UIImageView(image: UIImage(named: "tlo-kopia"))
+
     enum Images: Int {
         case item0 = 0
         case item1 = 1
@@ -61,11 +86,6 @@ final class MainViewModel {
             }
         }
     }
-    
-    let screenTitle: String = "Harry Potter"
-    let backTitle: String = "Back"
-    let backgroundColor = UIColor(red: 0, green: 28, blue: 41)
-    let backgroundView = UIImageView(image: UIImage(named: "tlo-kopia"))
 }
 
 extension UIColor {

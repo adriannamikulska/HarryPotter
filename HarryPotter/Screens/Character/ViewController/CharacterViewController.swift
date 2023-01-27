@@ -11,9 +11,7 @@ final class CharacterViewController: UICollectionViewController {
     
     //MARK: - Properties
     
-    private let characterCellId = "characterCellId"
-    private let  characterViewModel: CharacterViewModelProtocol
-    
+    private let characterViewModel: CharacterViewModelProtocol
     
     //MARK: - Lifecycle
     
@@ -35,9 +33,8 @@ final class CharacterViewController: UICollectionViewController {
     //MARK: - Private
     
     private func characterRegister() {
-        collectionView.register(CharacterCell.self, forCellWithReuseIdentifier: characterCellId)
+        collectionView.register(CharacterCell.self, forCellWithReuseIdentifier: characterViewModel.characterCellId)
     }
-    
 }
 
 extension CharacterViewController {
@@ -60,7 +57,7 @@ extension CharacterViewController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         if indexPath.section == 0 {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: characterCellId, for: indexPath) as? CharacterCell else {return UICollectionViewCell()}
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: characterViewModel.characterCellId, for: indexPath) as? CharacterCell else {return UICollectionViewCell()}
             cell.backgroundColor = .none
             let urlString = characterViewModel.character.image
             guard let url = URL(string: urlString) else {
@@ -78,7 +75,7 @@ extension CharacterViewController {
             getDataTask.resume()
             return cell
         } else if indexPath.section == 1 {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: characterCellId, for: indexPath) as? CharacterCell else {return UICollectionViewCell()}
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: characterViewModel.characterCellId, for: indexPath) as? CharacterCell else {return UICollectionViewCell()}
             cell.backgroundColor = characterViewModel.backgroundColor
             if indexPath.item == 0 {
                 cell.characterLabel.text = "Name: \(characterViewModel.character.name)"
