@@ -1,5 +1,5 @@
 //
-//  FavouriteHeader.swift
+//  HouseHeader.swift
 //  HarryPotter
 //
 //  Created by Adrianna Mikulska on 13/02/2023.
@@ -7,16 +7,15 @@
 
 import UIKit
 
-final class FavouriteHeader: UITableViewHeaderFooterView {
+final class HouseHeader: UITableViewHeaderFooterView {
     
-    lazy var favHeader: UILabel = {
+    lazy var houseHeader: UILabel = {
         let header = UILabel()
         header.translatesAutoresizingMaskIntoConstraints = false
-        header.textAlignment = .center
         header.font = UIFont(name: "Cochin-Bold", size: 22)
-        header.text = "Favorite characters"
-        header.textColor = .white
-        
+        header.textColor = UIColor.white
+        header.text = "Members of house"
+        header.textAlignment = .center
         return header
     }()
     
@@ -31,13 +30,13 @@ final class FavouriteHeader: UITableViewHeaderFooterView {
     }
 
     private func setupSubviews() {
-        addSubview(favHeader)
+        addSubview(houseHeader)
         
         NSLayoutConstraint.activate([
-            favHeader.centerXAnchor.constraint(equalTo: centerXAnchor),
-            favHeader.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -12),
-            favHeader.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor, constant: 8),
-            favHeader.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -8),
+            houseHeader.centerXAnchor.constraint(equalTo: centerXAnchor),
+            houseHeader.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -12),
+            houseHeader.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor, constant: 8),
+            houseHeader.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -8),
            
         ])
     }

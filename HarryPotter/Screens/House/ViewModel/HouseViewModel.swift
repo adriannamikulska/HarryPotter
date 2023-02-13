@@ -38,14 +38,12 @@ protocol HouseViewModelDelegate: AnyObject {
 
 protocol HouseViewModelProtocol {
     var characters: [Character] { get }
-    var backgroundColor: UIColor { get }
     var backgroundView: UIImageView { get }
-    var headerText: String {get}
-    var textColor: UIColor {get}
-    var numberOfLine: Int {get}
+    var backgroundColor: UIColor { get }
     var delegate: HouseViewModelDelegate? { get set }
     var dependencies: ApplicationDependencies { get }
     var cellId: String { get }
+    var headerId: String { get }
     
     func downloadCharacters()
 }
@@ -65,13 +63,10 @@ final class HouseViewModel: HouseViewModelProtocol {
     // MARK: - HouseViewModelProtocol
     
     var characters = [Character]()
-    let backgroundColor = UIColor(red: 0, green: 28, blue: 41)
     let backgroundView = UIImageView(image: UIImage(named: "tlo-kopia"))
-    let headerText = "Members of house"
-    let textColor = UIColor.white
-    let numberOfLine  = 0
+    let backgroundColor = UIColor(red: 0, green: 28, blue: 41)
     let cellId = "cellId"
-    
+    let headerId = "headerId"
     
     func downloadCharacters() {
         apiClient.downloadHogwartCharacters(for: house, onComplete: { [weak self] (characters, error) in
