@@ -41,8 +41,15 @@ final class MainViewController: UICollectionViewController {
     private func setupNavigationBar() {
         navigationItem.title = mainViewModel.screenTitle
         navigationItem.backButtonTitle = mainViewModel.backTitle
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Favourite", style: .plain, target: self, action: #selector(didTapFavorite))
         let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white, .font: UIFont(name: "Cochin-Bold", size: 25)]
         navigationController?.navigationBar.titleTextAttributes = textAttributes
+    }
+    
+    @objc func didTapFavorite() {
+        let viewModel = FavouriteViewModel(dependencies: self.mainViewModel.dependencies)
+        let favoriteVC = FavouriteViewController(favouriteViewModel: viewModel)
+        navigationController?.pushViewController(favoriteVC, animated: true)
     }
     
     private func registerCells() {
@@ -99,8 +106,12 @@ extension MainViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: mainViewModel.headerId, for: indexPath)
-
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: mainViewModel.headerId, for: indexPath) as! MainCollectionHeaderView
+        if indexPath.section == 0 {
+            header.headerLabel.text = mainViewModel.header0Title
+        } else {
+            header.headerLabel.text = mainViewModel.header1Title
+        }
         return header
     }
 }
@@ -117,6 +128,7 @@ extension MainViewController {
                 let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(200)), subitems: [item])
                 
                 let section = NSCollectionLayoutSection(group: group)
+                section.boundarySupplementaryItems = [.init(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(50)), elementKind: categoryHeaderId, alignment: .top)]
                 section.contentInsets.bottom = 5
                 section.orthogonalScrollingBehavior = .continuous
                 

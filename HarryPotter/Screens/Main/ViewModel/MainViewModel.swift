@@ -37,6 +37,8 @@ protocol MainViewModelProtocol {
     var apiClient: APIClient { get }
     var cellId: String { get }
     var headerId: String { get }
+    var header0Title: String { get }
+    var header1Title: String { get }
     var screenTitle: String { get }
     var backTitle: String { get }
     var backgroundColor: UIColor { get }
@@ -54,6 +56,8 @@ final class MainViewModel: MainViewModelProtocol {
     let apiClient =  APIClient()
     let cellId = "cellId"
     let headerId = "headerId"
+    let header0Title = "Gallery"
+    let header1Title = "Hogwart's houses"
     let screenTitle = "Harry Potter"
     let backTitle = "Back"
     let backgroundColor = UIColor(red: 0, green: 28, blue: 41)

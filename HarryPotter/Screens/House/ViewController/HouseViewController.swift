@@ -32,7 +32,6 @@ final class HouseViewController: UITableViewController {
         registerTable()
         registerHeader()
         getCharacters()
-        setupButton()
     }
     
     //MARK: - Private
@@ -46,16 +45,6 @@ final class HouseViewController: UITableViewController {
     
     private func registerHeader() {
         tableView.register(HouseHeader.self, forHeaderFooterViewReuseIdentifier: houseViewModel.headerId)
-    }
-    
-    private func setupButton() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Favorite characters", style: .plain, target: self, action: #selector(didTapFavorite))
-    }
-    
-    @objc func didTapFavorite() {
-        let viewModel = FavouriteViewModel(dependencies: self.houseViewModel.dependencies)
-        let favoriteVC = FavouriteViewController(favouriteViewModel: viewModel)
-        navigationController?.pushViewController(favoriteVC, animated: true)
     }
 }
 
