@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		401D262C2931109000E0D432 /* HarryPotterModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 401D262A2931109000E0D432 /* HarryPotterModel.xcdatamodeld */; };
+		4023CC49299A379B00C0AA14 /* FavouriteHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4023CC48299A379B00C0AA14 /* FavouriteHeader.swift */; };
 		4062B4B428E47EC300813CCF /* FavouriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4062B4B328E47EC300813CCF /* FavouriteViewController.swift */; };
 		4062B4B928E47F5900813CCF /* FavouriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4062B4B828E47F5900813CCF /* FavouriteViewModel.swift */; };
 		4062B4BB28E47F6700813CCF /* FavouriteMemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4062B4BA28E47F6700813CCF /* FavouriteMemberCell.swift */; };
@@ -53,6 +54,7 @@
 
 /* Begin PBXFileReference section */
 		401D262B2931109000E0D432 /* HarryPotterModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HarryPotterModel.xcdatamodel; sourceTree = "<group>"; };
+		4023CC48299A379B00C0AA14 /* FavouriteHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteHeader.swift; sourceTree = "<group>"; };
 		4062B4B328E47EC300813CCF /* FavouriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteViewController.swift; sourceTree = "<group>"; };
 		4062B4B828E47F5900813CCF /* FavouriteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteViewModel.swift; sourceTree = "<group>"; };
 		4062B4BA28E47F6700813CCF /* FavouriteMemberCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteMemberCell.swift; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 			isa = PBXGroup;
 			children = (
 				4062B4BA28E47F6700813CCF /* FavouriteMemberCell.swift */,
+				4023CC48299A379B00C0AA14 /* FavouriteHeader.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -499,6 +502,7 @@
 				409B833928AE5F400039D201 /* MainCollectionHeaderView.swift in Sources */,
 				401D262C2931109000E0D432 /* HarryPotterModel.xcdatamodeld in Sources */,
 				409B830328AE59F50039D201 /* SceneDelegate.swift in Sources */,
+				4023CC49299A379B00C0AA14 /* FavouriteHeader.swift in Sources */,
 				40D3D2E0291FEB3000210269 /* CoreDataManager.swift in Sources */,
 				409B833F28AE61A10039D201 /* MainViewModel.swift in Sources */,
 			);

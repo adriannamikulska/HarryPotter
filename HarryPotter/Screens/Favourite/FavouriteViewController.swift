@@ -28,6 +28,7 @@ final class FavouriteViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableRegister()
+        headerRegister()
         tableView.backgroundView = favouriteViewModel.backgroundView
         performFetch()
     }
@@ -37,17 +38,10 @@ final class FavouriteViewController: UITableViewController {
     private func tableRegister() {
         tableView.register(FavouriteMemberCell.self, forCellReuseIdentifier: favouriteViewModel.cellId)
     }
-
-    private lazy var header: UILabel = {
-        let header = UILabel()
-        header.translatesAutoresizingMaskIntoConstraints = false
-        header.textAlignment = .center
-        header.font = UIFont(name: "Cochin-Bold", size: 20)
-        header.text = "Favorite characters"
-        header.textColor = .white
-        
-        return header
-    }()
+    
+    private func headerRegister() {
+        tableView.register(FavouriteHeader.self, forHeaderFooterViewReuseIdentifier: favouriteViewModel.headerId)
+    }
     
     private func performFetch() {
         do {
@@ -101,7 +95,8 @@ extension FavouriteViewController {
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return header
+        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: favouriteViewModel.headerId) as! FavouriteHeader
+        return headerView
     }
 }
 
