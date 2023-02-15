@@ -90,7 +90,14 @@ extension FavouriteViewController {
         
         cell.backgroundColor = favouriteViewModel.backgroundColor
         cell.memberLabel.text = object.name
-    
+        
+        cell.deletedFavourite = {
+            do {
+                try self.favouriteViewModel.dependencies.dataController.delete(person: object)
+            } catch (let error){
+                print(error)
+            }
+        }
         return cell
     }
     
