@@ -30,8 +30,8 @@ final class HouseViewController: UITableViewController {
         houseViewModel.delegate = self
         tableView.backgroundView = houseViewModel.backgroundView
         registerTable()
+        registerHeader()
         getCharacters()
-        setupButton()
     }
     
     //MARK: - Private
@@ -43,27 +43,9 @@ final class HouseViewController: UITableViewController {
         tableView.register(HouseMemberCell.self, forCellReuseIdentifier: houseViewModel.cellId)
     }
     
-    private func setupButton() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Favorite characters", style: .plain, target: self, action: #selector(didTapFavorite))
+    private func registerHeader() {
+        tableView.register(HouseHeader.self, forHeaderFooterViewReuseIdentifier: houseViewModel.headerId)
     }
-    
-    @objc func didTapFavorite() {
-        let viewModel = FavouriteViewModel(dependencies: self.houseViewModel.dependencies)
-        let favoriteVC = FavouriteViewController(favouriteViewModel: viewModel)
-        navigationController?.pushViewController(favoriteVC, animated: true)
-    }
-    
-    private lazy var headerLabel: UILabel = {
-        let headerLabel = UILabel()
-        headerLabel.translatesAutoresizingMaskIntoConstraints = false
-        headerLabel.font = UIFont(name: "Cochin-Bold", size: 20)
-        headerLabel.backgroundColor = houseViewModel.backgroundColor
-        headerLabel.textColor = houseViewModel.textColor
-        headerLabel.numberOfLines = houseViewModel.numberOfLine
-        headerLabel.text = houseViewModel.headerText
-        headerLabel.textAlignment = .center
-        return headerLabel
-    }()
 }
 
 extension HouseViewController: HouseViewModelDelegate {
@@ -121,7 +103,8 @@ extension HouseViewController {
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return headerLabel
+        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: houseViewModel.headerId) as! HouseHeader
+        return headerView
     }
 }
 

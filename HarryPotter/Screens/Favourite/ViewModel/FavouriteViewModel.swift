@@ -13,6 +13,7 @@ protocol FavouriteViewModelProtocol {
     var backgroundColor: UIColor { get }
     var characters: [Character] { get }
     var cellId: String { get }
+    var headerId: String { get }
     
 }
 
@@ -22,6 +23,7 @@ final class FavouriteViewModel: FavouriteViewModelProtocol {
     var backgroundColor = UIColor(red: 0, green: 28, blue: 41)
     var characters = [Character]()
     let cellId = "cellId"
+    let headerId = "headerId"
     
     init(dependencies: HasDataController) {
         self.dependencies = dependencies

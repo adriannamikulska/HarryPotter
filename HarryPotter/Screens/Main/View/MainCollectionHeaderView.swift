@@ -8,14 +8,13 @@
 import UIKit
 
 class MainCollectionHeaderView: UICollectionReusableView {
-    // TODO: NSLayoutConstraint like in Cell
+
     lazy var headerLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .white
-        label.font = UIFont(name: "Cochin-Bold", size: 25)
+        label.font = UIFont(name: "Cochin-Bold", size: 22)
         label.textAlignment = .center
-        label.text = "Hogwart's houses"
         return label
     }()
     
